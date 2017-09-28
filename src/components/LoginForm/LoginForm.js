@@ -1,30 +1,41 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {login} from '../../redux/reducer'
-
+import {login, testingThingy} from '../../actions/actions'
+import {browserHistory} from 'react-router';
 class LoginForm extends Component{
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            email: '',
+            password: ''
+        };
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
+
     render(){
-        let {email,password} = this.state;
-        let {isLoginPending,isLoginSuccess,loginError} = this.props;
         return  (
         <div className="login-page" onSubmit={this.onSubmit}>
         <div className="form">
           <form className="login-form">
-            <input type="text" placeholder="username" onChange={e=>this.setState({email:e.target.value})} />
-            <input type="password" placeholder="password" onChange={e=>this.setState({password:e.target.value})} />
+            <input name="email" required type="email" placeholder="Email" value={this.state.email} onChange={this.onChange} />
+            <input name="password" required type="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
             <button>login</button>
-            {isLoginPending && <div>Please Wait...</div>}
-            {isLoginSuccess && <div>Welcome Back!</div>}
-            {loginError && <div>{loginError.message}</div>}
+            { this.props.isLoginPending && <div>Please Wait...</div> }
+            { this.props.isLoginSuccess && <div>Welcome Back!</div>}
+            { this.props.loginError && <div>  {this.props.loginError } </div> }
 
           </form>
         </div>
       </div>
       );
+    }
+    onChange = (e) => {
+        this.setState(
+            {
+                [e.target.name]:e.target.value
+            }
+        );
     }
     onSubmit = (e) =>{
         e.preventDefault();
@@ -37,13 +48,15 @@ const mapStateToProps = (state)=> {
     return {
         isLoginPending: state.isLoginPending,
         isLoginSuccess: state.isLoginSuccess,
-        loginError: state.loginError
+        loginError: state.loginError,
+        name: state.name
     };
 };
 
 const mapDispatchToProps = (dispatch)=>{
     return {
-        login: (email,password)=> dispatch(login(email,password))
+        login: (email,password) => dispatch(login(email,password)),
+        dispatch: dispatch
     };
 };
 

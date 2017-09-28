@@ -1,92 +1,65 @@
-import Promise from 'es6-promise';
-const LOGIN_PENDING = 'LOGIN_PENDING';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_ERROR = 'LOGIN_ERROR';
-function setLoginPending(isLoginPending){
-    return {
-        type:LOGIN_PENDING,
-        isLoginPending
-    };
+import { ACTIONS } from '../constants/constants';
+import initialState from '../state';
+
+
+
+const coreReducer = (state = initialState, action) => {
+    state = checkAction(state, action);
+    return state;
 }
 
-function setLoginSuccess(isLoginSuccess){
-    return {
-        type: LOGIN_SUCCESS,
-        isLoginSuccess
-    };
-}
+const checkAction = (state, action) => {
+    switch (action.type) {
+        case ACTIONS.LOGIN_SUCCESS:
+            return {
+                ...state,
+                isLoginSuccess: action.isLoginSuccess
+            };
 
-function setLoginError(loginError){
-    return {
-        type: LOGIN_ERROR,
-        loginError
-    };
-}
+        case ACTIONS.LOGIN_PENDING:
+            return {
+                ...state,
+                isLoginPending: action.isLoginPending
+            };
 
-export function login(email, password){
-    return dispatch =>{
-        dispatch(setLoginPending(true));
-        dispatch(setLoginSuccess(false));
-        dispatch(setLoginError(null));
+        case ACTIONS.LOGIN_ERROR:
 
-        sendLoginRequest(email,password)
+            return {
+                ...state,
+                loginError: action.loginError
+            };
 
-        .then(success=>{
-            dispatch(setLoginPending(false));
-            dispatch(setLoginSuccess(true));
-        })
-        .catch((error)=>{
-            dispatch(setLoginPending(false));
-            dispatch(setLoginError(error));
-        });
-    }
-}
+        case ACTIONS.SAVE_USER_SESSION:
+            return {
+                ...state,
+                session: action.session
+            };
 
-function sendLoginRequest(email,password){
-    return new Promise((resolve,reject)=>{
-        if(email =='osama@gmail.com' && password=='123'){
-            return resolve(true);
-        }
+        case ACTIONS.STORES_PENDING:
+            return {
+                ...state,
+                storesPending: action.storesPending
+            };
 
-        
-        
-            reject(new Error("Invalid email or password"));
-        
-    });
-}
+        case ACTIONS.STORES_SUCCESS:
+            return {
+                ...state,
+                stores: action.stores
+            };
 
-const STATE = {
-    isLoginPending:false,
-    isLoginSuccess:false,
-    loginError:null,
-    name:'rummykhan was here!!',
-};
-
-export default function reducer(state=STATE,action){
-
-    console.log(STATE);
-
-    switch(action){
-        case LOGIN_SUCCESS:
-        return {
-            ...state,
-            isLoginSuccess:action.isLoginSuccess
-        };
-
-        case LOGIN_PENDING:
-        return {
-            ...state,
-            isLoginPending:action.isLoginPending
-        };
-
-        case LOGIN_ERROR:
-
-        return {
-            ...state,
-            loginError: action.loginError
-        };
-
+        case ACTIONS.STORES_ERROR:
+            return {
+                ...state,
+                storesError: action.storesError
+            };
+        case ACTIONS.ACTION_THINGY:
+            return {
+                ...state,
+                name: action.name
+            };
         default:
-        return state;
+            return state;
     }
 }
+
+export default coreReducer;
