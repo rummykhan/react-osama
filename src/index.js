@@ -4,14 +4,14 @@ import registerServiceWorker from './registerServiceWorker';
 import bootAxios from './bootstrap';
 import {Provider} from 'react-redux';
 import store from './store';
-import LoginForm from './components/LoginForm/LoginForm';
-import App from './components/App';
+import {browserHistory,Router} from 'react-router';
+import routes from './routes';
 
 bootAxios();
 
 ReactDOM.render(
 <Provider store={store}>
-    <App> </App>
+    <Router history={browserHistory} routes={routes} ></Router>
 </Provider>, 
 document.getElementById('root')
 );

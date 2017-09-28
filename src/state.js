@@ -2,6 +2,11 @@ export default {
     isLoginPending: false,
     isLoginSuccess: false,
     loginError: null,
+    countriesError: null,
+    countriesSuccess: [],
+    citiesSuccess: [],
+    states: [],
     stores: [],
-    name: 'Osama Bin Ishrat'
+    storeDetail: [],
+    name: 'Osama'
 };

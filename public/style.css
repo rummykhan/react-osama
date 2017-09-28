@@ -104,3 +104,8 @@ body {
   min-height: 600px;
   margin: 56px;
 }
+.create-store-form{
+  margin: 45px;
+  background: white;
+  padding: 30px;
+}

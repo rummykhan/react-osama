@@ -11,13 +11,18 @@ class LoginForm extends Component{
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        console.log(this.props.location);
+        if(this.props.location.pathname == '/logout'){
+            localStorage.removeItem('session');
+            browserHistory.push('/login');
+        }
     }
 
     render(){
         return  (
-        <div className="login-page" onSubmit={this.onSubmit}>
+        <div className="login-page">
         <div className="form">
-          <form className="login-form">
+          <form className="login-form" onSubmit={this.onSubmit}>
             <input name="email" required type="email" placeholder="Email" value={this.state.email} onChange={this.onChange} />
             <input name="password" required type="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
             <button>login</button>

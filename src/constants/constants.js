@@ -2,11 +2,21 @@
 const BASEURL = 'https://192.168.1.231:8443/osama/market/';
 const LOGIN = 'users/token';
 const STORES_LISTING = 'stores?';
+const LOCATION = 'country?';
+const CITIES = 'location?q=type=city';
+const STATES = 'location?q=type=state';
+const CREATE_STORE_API = 'stores';
+const GET_STORE = 'stores/';
 
-const API = {
+const api = {
     BASEURL,
     LOGIN,
-    STORES_LISTING
+    STORES_LISTING,
+    LOCATION,
+    CITIES,
+    STATES,
+    CREATE_STORE_API,
+    GET_STORE
 }
 
 const LOGIN_PENDING = 'LOGIN_PENDING';
@@ -17,7 +27,17 @@ const STORES_PENDING = 'STORES_PENDING';
 const STORES_SUCCESS = 'STORES_SUCCESS';
 const STORES_ERROR = 'STORES_ERROR';
 const ACTION_THINGY = 'ACTION_THINGY';
-const ACTIONS = {
+const FETCH_COUNTRIES_PENDING = 'FETCH_COUNTRIES_PENDING';
+const FETCH_COUNTRIES_SUCCESS = 'FETCH_COUNTRIES_SUCCESS';
+const FETCH_CITIES = 'FETCH_CITIES';
+const FETCH_STATES = 'FETCH_STATES';
+const FETCH_COUNTRIES_ERROR = 'FETCH_COUNTRIES_ERROR';
+const UPDATE_NAME = 'UPDATE_NAME';
+const CREATE_STORE = 'CREATE_STORE';
+const CREATE_STORE_ERROR = 'CREATE_STORE_ERROR';
+const STORE_DETAILS = 'STORE_DETAILS';
+
+const actions = {
     LOGIN_ERROR,
     LOGIN_PENDING,
     LOGIN_SUCCESS,
@@ -25,9 +45,18 @@ const ACTIONS = {
     STORES_PENDING,
     STORES_SUCCESS,
     STORES_ERROR,
-    ACTION_THINGY
+    ACTION_THINGY,
+    FETCH_COUNTRIES_PENDING,
+    FETCH_COUNTRIES_SUCCESS,
+    FETCH_COUNTRIES_ERROR,
+    FETCH_CITIES,
+    FETCH_STATES,
+    UPDATE_NAME,
+    CREATE_STORE,
+    CREATE_STORE_ERROR,
+    STORE_DETAILS
 }
 export {
-    API,
-    ACTIONS
+    api,
+    actions
 };

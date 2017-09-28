@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStores } from '../../actions/actions';
+import {browserHistory} from 'react-router';
+
 import store from '../../store';
 class StoreListing extends Component {
 
@@ -8,6 +10,10 @@ class StoreListing extends Component {
         super(props);
     }
     componentDidMount() {
+        if (!localStorage.getItem('session')) {
+            browserHistory.push("/");
+            return false;
+        }
         this.props.dispatch(fetchStores());
     }
     
@@ -30,7 +36,7 @@ class StoreListing extends Component {
                             stores.data.map((row, i) =>
                                 <tr key={i}>
                                     <td>{row.id}</td>
-                                    <td>{row.name}</td>
+                                    <td><a href={'store-details/'+row.id}> {row.name}</a></td>
                                     <td>{row.slug}</td>
                                 </tr>
                             )
